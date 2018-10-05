@@ -3,7 +3,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Battery implements java.rmi.Remote {
 
-	public final static int PULSE_TIME = 10; 		// ms
+	private final int PULSE_TIME = 10; 		// ms
 	
 	
 	private final int BATTERY_SIMULATOR_TIME = 20; 	//ms
