@@ -56,7 +56,7 @@ public class Battery implements java.rmi.Remote {
 					randValue = minRange + (maxRange - minRange) * rand.nextDouble();
 
 					// randomly kill battery
-					working = randValue >= 0 && randValue < 0.2 ? false : true;
+					working = randValue >= 0 && randValue < 0.2 ? false : true; // 2% chance
 
 					energyLeft -= randValue;
 					// Make sure energyLeft does not go under 0
@@ -88,7 +88,7 @@ public class Battery implements java.rmi.Remote {
 		Random rand =  new Random();
 		int randValue = rand.nextInt(1000 - 0) + 0;
 		if (randValue == 500) { // random number to throw an exception
-			int bad = 20 / 0;
+			int bad = 20 / 0;  // 0.1% chance
 		}
 	}
 
