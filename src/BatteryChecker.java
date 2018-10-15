@@ -15,7 +15,6 @@ public class BatteryChecker extends UnicastRemoteObject implements BatteryChecke
 	private FaultDetector faultD;
 
 	public BatteryChecker() throws RemoteException {
-		super();
 		this.batteryWorking = true;
 		this.faultD = new FaultDetector();
 	}

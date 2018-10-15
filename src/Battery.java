@@ -56,7 +56,7 @@ public class Battery implements java.rmi.Remote {
 					randValue = minRange + (maxRange - minRange) * rand.nextDouble();
 
 					// randomly kill battery
-					working = randValue >= 0 && randValue < 0.4 ? false : true;
+					working = randValue >= 0 && randValue < 0.2 ? false : true;
 
 					energyLeft -= randValue;
 					// Make sure energyLeft does not go under 0
@@ -71,8 +71,9 @@ public class Battery implements java.rmi.Remote {
 			}
 			if (!working)  {
 				System.out.println("Battery died!"); // random failure
+			} else {
+				System.out.println("Battery needs to be recharged"); // happy path
 			}
-			System.out.println("Battery needs to be recharged"); // happy path
 			Thread.currentThread().interrupt();
 		}
 	}
