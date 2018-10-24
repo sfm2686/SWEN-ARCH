@@ -17,5 +17,6 @@ public class FaultDetector {
 	public void reportFault() {
 		LocalDateTime now = LocalDateTime.now();
 		System.err.println(this.dtf.format(now) + ": Battery is dead!");
+		// call Simulator to change batteries
 	}
 }
