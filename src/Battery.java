@@ -10,23 +10,25 @@ public abstract class Battery implements Remote {
 	protected final double CAPACITY = 400;
 	protected final double DEFAULT_STARTING_ENERGY = 400;
 	
-	
 	protected double energyLeft; // how much kwh left
 	protected boolean working;
 	protected BatteryCheckerInterface batteryChecker; // remote batteryChecker object
+	protected Random rand;
+	protected Battery batteryToSync;
 	
-	
-	public Battery(BatteryCheckerInterface checker) throws RemoteException {
+	public Battery(BatteryCheckerInterface checker) {
 		this.energyLeft = DEFAULT_STARTING_ENERGY;
 		this.working = true;
 		this.batteryChecker = checker;
-		this.batteryChecker.getTimeInterval(PULSE_TIME);
-		// initialize and start battery simulator and pulse sender
-		BatteryPulse bPulse = new BatteryPulse();
-		bPulse.start();
-		// call batteryChecker object to start taking the pulse
-		this.batteryChecker.startPulse();
-		// this.pulse();
+		this.rand = new Random();
+	}
+	
+	public void setBatteryToSync(Battery battery) {
+		this.batteryToSync = battery;
+	}
+	
+	public void sync(double energyLeft) {
+		this.energyLeft = energyLeft;
 	}
 	
 	// send pulse to remote object
@@ -48,8 +50,18 @@ public abstract class Battery implements Remote {
 		}
 	}
 	
-	public abstract void causeException();
-	public abstract void deductEnergy();
+	public void startHeartBeat() throws RemoteException {
+		// initialize and start pulse sender
+		BatteryPulse bPulse = new BatteryPulse();
+		bPulse.start();
+		this.batteryChecker.getTimeInterval(PULSE_TIME);
+		// call batteryChecker object to start taking the pulse
+		this.batteryChecker.startPulse();
+	}
+	
+	public boolean isWorking() {
+		return this.working;
+	}
 	
 	protected double calculateEnergyLevel() {
 		// notify battery2
@@ -61,4 +73,18 @@ public abstract class Battery implements Remote {
 		// notify battery2
 		return Math.round((this.energyLeft * 1.5) * 100.0) / 100.0;
 	}
+	
+	@Override
+	public String toString() {
+		String result = "";
+		// formatting 2 decimal places percent for energyLeft
+		result += this.getClass() + "\n";
+		result += String.format("%s%.2f%s", "Energy level: ", this.calculateEnergyLevel(), "%\n");
+		result += "Distance left: " + this.calculateDistanceLeft() + "km\n";
+		result += "------------------------------------------------------\n\n";
+		return result;
+	}
+	
+	public abstract void causeException();
+	public abstract void deductEnergy();
 }
