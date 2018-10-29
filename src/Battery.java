@@ -5,6 +5,11 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class Battery extends UnicastRemoteObject implements BatteryInterface {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	// consts
 	protected final int PULSE_TIME = 1000;
 	protected final double CAPACITY = 400;

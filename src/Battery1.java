@@ -7,6 +7,11 @@ import java.rmi.registry.Registry;
 
 public class Battery1 extends Battery {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private BatteryInterface batteryToSync;
 	
 	public Battery1(BatteryCheckerInterface batteryChecker, BatteryInterface batteryToSync) throws RemoteException {
@@ -17,6 +22,7 @@ public class Battery1 extends Battery {
 	public void causeException() {
 		int randValue = this.rand.nextInt(this.maxRangeEx - this.minRangeEx) + this.minRangeEx;
 		if (randValue == 500) { // random number to throw an exception
+			@SuppressWarnings("unused")
 			int bad = 20 / 0;  // 0.1% chance
 		}
 	}

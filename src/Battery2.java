@@ -4,10 +4,14 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.time.format.DateTimeFormatter;
 
-public class Battery2 extends Battery implements BatteryInterface {
+public class Battery2 extends Battery {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Battery2(BatteryCheckerInterface batteryChecker) throws RemoteException {
 		super(batteryChecker, 0, 100000, 0, 10);
 	}
@@ -22,6 +26,7 @@ public class Battery2 extends Battery implements BatteryInterface {
 	public void causeException() {
 		int randValue = this.rand.nextInt(this.maxRangeEx - this.minRangeEx) + this.minRangeEx;
 		if (randValue == 0) { // random number to throw an exception
+			@SuppressWarnings("unused")
 			int bad = 20 / 0;  // INSERT CHANCE
 		}
 	}

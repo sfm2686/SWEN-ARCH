@@ -9,6 +9,11 @@ import java.util.concurrent.TimeUnit;
 
 public class Simoulator extends UnicastRemoteObject implements SimoulatorInterface {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private final int BATTERY_SIMULATOR_TIME = 1500;
 	
 	private BatteryInterface currentBatt, redundantBatt;
@@ -23,7 +28,7 @@ public class Simoulator extends UnicastRemoteObject implements SimoulatorInterfa
 	@Override
 	public synchronized void switchBattery() throws RemoteException {
 		this.currentBatt = this.redundantBatt;
-		System.out.println("------------------------------------");
+		System.out.println("\n\n------------------------------------");
 		System.out.println("Switched from Battery1 to Battery2");
 		System.out.println("------------------------------------");
 	}
@@ -33,9 +38,10 @@ public class Simoulator extends UnicastRemoteObject implements SimoulatorInterfa
 			try {
 				TimeUnit.MILLISECONDS.sleep(BATTERY_SIMULATOR_TIME);
 				this.currentBatt.deductEnergy();
-				System.out.println("\n\nUsing: " + currentBatt.getName());
+				System.out.println("\n\n------------------------------------");
+				System.out.println("Using: " + currentBatt.getName());
 				System.out.println(currentBatt.getEnergyLeft() + " energy left");
-				System.out.println("-----------------------------------------");
+				System.out.println("------------------------------------");
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
