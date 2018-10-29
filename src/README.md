@@ -6,7 +6,7 @@ and compile `BatteryChecker.java` and `Battery.java` classes
 $ javac BatteryChecker.java Battery.java
 ```
 
-3. Run the registry
+2. Run the registry
 ```
 $ rmiregistry <port_number>
 ```
@@ -14,11 +14,19 @@ default port is 1099, `<port_number>` can be left empty
 ```
  $ rmiregistry
 ```
-4. On a new terminal window, run the `BatteryChecker` object (server)
-```
+3. On a new terminal window, run the `BatteryChecker` object (server)
+```Â
 $ java BatteryChecker
 ```
-5. On a new terminal window, run the `Battery` object (client)
+4. On a new terminal window, run the `Battery2` object
 ```
-$ java Battery
+$ java Battery2
+```
+5. On a new terminal window, run the `Battery1` object
+```
+$ java Battery1
+```
+6. On a new terminal window, run the `Simulator` object
+```
+$ java Simulator
 ```
