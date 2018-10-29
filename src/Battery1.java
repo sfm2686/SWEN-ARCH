@@ -1,37 +1,46 @@
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
 public class Battery1 extends Battery {
-
-
-	private double minRangeEnergy, maxRangeEnergy;
-	private int minRangeException, maxRangeException;
 	
-	public Battery1(BatteryCheckerInterface batteryChecker) {
-		super(batteryChecker);
-		this.minRangeEnergy = 0;
-		this.maxRangeEnergy = 10;
-		
-		this.minRangeException = 0;
-		this.maxRangeException = 1000;
+	private BatteryInterface batteryToSync;
+	
+	public Battery1(BatteryCheckerInterface batteryChecker, BatteryInterface batteryToSync) throws RemoteException {
+		super(batteryChecker, 0, 1000, 0, 10);
+		this.batteryToSync = batteryToSync;
 	}
 	
 	public void causeException() {
-		int randValue = this.rand.nextInt(this.maxRangeException - this.minRangeException) + this.minRangeException;
+		int randValue = this.rand.nextInt(this.maxRangeEx - this.minRangeEx) + this.minRangeEx;
 		if (randValue == 500) { // random number to throw an exception
 			int bad = 20 / 0;  // 0.1% chance
 		}
 	}
-	
+
 	public void deductEnergy() {
-		double randValue = this.minRangeEnergy + (this.maxRangeEnergy - this.minRangeEnergy) * rand.nextDouble();
+		double randValue = (this.maxRangeRand - this.minRangeRand) * this.rand.nextDouble() + this.minRangeRand;
 		this.energyLeft -= randValue;
+		this.energyLeft = (this.energyLeft < 0) ? 0 : this.energyLeft; 
 		if (this.batteryToSync != null) {
-			this.batteryToSync.sync(this.energyLeft);
+			try {
+				this.batteryToSync.sync(this.energyLeft);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			}
 		}
-		this.working = randValue >= 0 && randValue < 0.2 ? false : true; // 2% chance of random failure
+		this.working = randValue >= 0 && randValue < 1 ? false : true; // INSERT CHANCE OF RANDOM FAILURE
 	}
-//
-//	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
-//		Registry registry = LocateRegistry.getRegistry();
-//		BatteryCheckerInterface bChecker = (BatteryCheckerInterface) registry.lookup("BatteryChecker");
-//		Battery1 battery = new Battery1(bChecker);
-//	}
+
+	// needs checker, battery2 to be online
+	public static void main(String[] args) throws MalformedURLException, RemoteException, NotBoundException {
+		Registry registry = LocateRegistry.getRegistry();
+		BatteryCheckerInterface bChecker = (BatteryCheckerInterface) registry.lookup("BatteryChecker");
+		BatteryInterface b2 = (BatteryInterface) registry.lookup("Battery2");
+		Battery battery = new Battery1(bChecker, b2);
+		Naming.rebind("Battery1", battery);
+	}
 }

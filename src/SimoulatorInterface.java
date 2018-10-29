@@ -1,7 +1,7 @@
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
-public interface SimoulatorInterface {
+public interface SimoulatorInterface extends Remote {
 	
-	public static void switchBattery() {
-		System.out.println("Battery has been switched");
-	}
+	public void switchBattery() throws RemoteException;
 }
