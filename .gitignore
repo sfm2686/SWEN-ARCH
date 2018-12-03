@@ -3,3 +3,4 @@ bin/
 .project
 .class
 python/project-env
+python/websession/websession/__pycache__/*

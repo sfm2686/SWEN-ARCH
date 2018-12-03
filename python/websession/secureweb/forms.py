@@ -1,5 +1,5 @@
 from django import forms
-from dappx.models import UserProfileInfo
+from secureweb.models import UserProfileInfo
 from django.contrib.auth.models import User
 
 
