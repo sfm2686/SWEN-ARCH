@@ -1,0 +1,14 @@
+{% extends "secureweb/base.html" %}
+{% block body_block %}
+<div class="container">
+  <div class="jumbotron">
+    <h1>Welcome!</h1>
+    {% if user.is_authenticated %}
+        <h2>Current user: {{ user.username }}</h2>
+        <h2>Car ID: {{ user.car_ID }}</h2>
+    {% else %}
+        <h2>Register or Login to use the dashboard</h2>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
