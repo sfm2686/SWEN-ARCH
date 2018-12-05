@@ -7,6 +7,7 @@ from app import config
 # app
 app = Flask(__name__)
 app.config.from_object(config.Config)
+session_cookie_name = app.session_cookie_name
 
 # database
 db = SQLAlchemy(app)
