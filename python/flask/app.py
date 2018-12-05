@@ -1,29 +1,33 @@
-from flask import Flask, flash, redirect, render_template, request, session
-from __init__ import app
+from flask import Flask, flash, redirect, render_template, request, session, url_for
+from forms import LoginForm
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from config import Config
+import os
 
-@app.route('/')
-def home():
-    # return render_template('index.html')
-    if not session.get('logged_in'):
-        print('not logged in')
-        return render_template('login.html')
-    print('not logged in')
+app = Flask(__name__)
+app.config.from_object(Config)
+# database
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+# login manager
+# login_manager = LoginManager()
+# login_manager.init_app(app)
+
+@app.route('/', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        flash('Login requested for user {}'.format(
+            form.username.data))
+        return redirect(url_for('dashboard'))
+
+    return render_template('login.html', form=form)
+
+@app.route('/dashboard')
+def dashboard():
     return render_template('dashboard.html')
 
-@app.route('/login', methods=['POST'])
-def login():
-    if request.form['password'] == 'password' and request.form['username'] == 'admin':
-        session['logged_in'] = True
-        print('correct')
-    else:
-        print('INcorrect')
-        flash('Wrong password or username')
-    return home()
-
-@app.route("/logout")
-def logout():
-    session['logged_in'] = False
-    return home()
-
-# if __name__ == "__main__":
-#     app.run()
+if __name__ == "__main__":
+    app.run()
