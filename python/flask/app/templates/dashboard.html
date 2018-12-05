@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block body %}
+{% if current_user.is_authenticated %}
+  <p>You are already logged in!</p>
+  <p>Hi {{ current_user.username }}</p>
+  <p>Role: {{ current_user.role }}</p>
+{% else %}
+  <p>You need to be logged in to use this page</p>
+{% endif %}
+{% endblock %}
