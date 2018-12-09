@@ -5,7 +5,6 @@ from app.forms import LoginForm, RegistrationForm
 import os
 from app import app, db
 from werkzeug.urls import url_parse
-from datetime import timedelta
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
@@ -17,12 +16,12 @@ def login():
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
             return redirect(url_for('login'))
-        login_user(user, remember=False)
+        login_user(user)
+        session.permanent = True
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('dashboard')
         return redirect(next_page)
-
     return render_template('login.html', form=form, session_name=app.session_cookie_name)
 
 @app.route('/dashboard')
@@ -34,7 +33,6 @@ def dashboard():
 
 @app.route('/profile')
 @login_required
-# @login.fresh_login_required
 def profile():
     return render_template('profile.html', session_name=app.session_cookie_name)
 
@@ -58,6 +56,6 @@ def logout():
     logout_user()
     return redirect(url_for('login'))
 
-@app.before_request
-def inactivity():
-    app.permanent_session_lifetime = timedelta(seconds=20)
+# @app.before_request
+# def inactivity():
+#     app.permanent_session_lifetime = timedelta(seconds=6)
