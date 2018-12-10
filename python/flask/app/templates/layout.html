@@ -6,10 +6,28 @@
       {% block title %}
       {% endblock %} - SecureWeb
     </title>
+
+    <!-- <link rel="stylesheet" type="text/css" href="static/css/style.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      window.onunload=function(){
+        // alert("are you sure mafaka??");
+        $.ajax({
+        type: 'POST',
+        url: "/logout"
+        });
+      };
+
+      $('.message a').click(function(){
+         $('form').animate({height: "toggle", opacity: "toggle"}, "slow");
+      });
+    </script>
   {% endblock %}
+
 </head>
 
 <body>
+
   <div>
     {% if current_user.is_authenticated %}
       <a href="{{ url_for('dashboard') }}">Dashboard</a>

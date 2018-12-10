@@ -1,7 +1,6 @@
 {% extends 'layout.html' %}
 {% block title %}Profile{% endblock %}
 {% block body %}
-<p>You are logged in!</p>
-<p>Hi {{ current_user.username }}</p>
+<p>Username: {{ current_user.username }}</p>
 <p>Role: {{ current_user.role }}</p>
 {% endblock %}

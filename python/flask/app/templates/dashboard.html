@@ -2,27 +2,10 @@
 {% block title %}Dashboard{% endblock %}
 {% block body %}
 
-{% block head %}
-
-  <script type="text/javascript">
-
-    window.setInterval(function test() {
-      // var active = '{{ current_user.is_authenticated }}';
-      // console.log(active);
-      // console.log("{{ current_user.is_active }}");
-      console.log("active: {{ current_user.is_active }}");
-      console.log("auth: {{ current_user.is_authenticated }}");
-      console.log("active:  {{ current_user.is_anonymous }}");
-      console.log("\n\n\n\n");
-    }, 1000);
-  </script>
-
-{% endblock %}
-
 {% if current_user.role == 'customer' %}
-  <button type="button" onClick="alert('View Available Cars Clicked')">View Available Cars</button><br>
+  View my car status <button type="button" onClick="alert('View My Car Clicked')">View My Car</button><br>
 {% elif current_user.role == 'engineer' %}
-  <button type="button" onClick="alert('View Fleet Clicked')">View Fleet</button><br>
+  View cars in the fleet here <button type="button" onClick="alert('View Fleet Clicked')">View Fleet</button><br>
 {% endif %}
-<button type="button" onClick="alert('Buy a Car Clicked')">Buy a car</button><br>
+Buy a car here <button type="button" onClick="alert('Buy a Car Clicked')">Buy a car</button><br>
 {% endblock %}
