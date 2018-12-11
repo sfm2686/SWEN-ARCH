@@ -1,0 +1,6 @@
+{% extends 'layout.html' %}
+{% block title %}Profile{% endblock %}
+{% block body %}
+<p>Username: {{ current_user.username }}</p>
+<p>Role: {{ current_user.role }}</p>
+{% endblock %}

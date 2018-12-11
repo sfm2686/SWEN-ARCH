@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block body %}
+
+{% if current_user.role == 'customer' %}
+  View my car status <button type="button" onClick="alert('View My Car Clicked')">View My Car</button><br>
+{% elif current_user.role == 'engineer' %}
+  View cars in the fleet here <button type="button" onClick="alert('View Fleet Clicked')">View Fleet</button><br>
+{% endif %}
+Buy a car here <button type="button" onClick="alert('Buy a Car Clicked')">Buy a car</button><br>
+{% endblock %}
