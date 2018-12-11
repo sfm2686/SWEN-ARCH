@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ThreadPooling_Scheduling:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ThreadPooling_Scheduling_jar</output-path>
+    <root id="archive" name="ThreadPooling_Scheduling.jar">
+      <element id="module-output" name="ThreadPooling_Scheduling" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../PriortyExecutorService-1.0 2/PriortyExecutorService-1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../PriortyExecutorService-1.0 2/lib/PriorityDeque-1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../PriortyExecutorService-1.0 2/lib/PriorityDeque-1.0-sources.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
